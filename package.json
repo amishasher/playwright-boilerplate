@@ -1,0 +1,23 @@
+{
+  "name": "playwright-templates",
+  "version": "1.0.0",
+  "dependencies": {
+    "@aws-crypto/client-node": "^4.0.0",
+    "@aws-crypto/kms-keyring": "^4.0.0",
+    "@aws-sdk/client-kms": "^3.490.0",
+    "aws-sdk": "^2.1533.0",
+    "chai": "^4.3.7",
+    "chai.assert": "^1.0.0",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.16.0",
+    "prettier": "2.8.7"
+  },
+  "scripts": {
+    "game-page-test": "npx browserstack-node-sdk playwright test --config=./playwright.config.ts --trace on"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.2",
+    "browserstack-node-sdk": "^1.31.17",
+    "jest": "^29.7.0"
+  }
+}

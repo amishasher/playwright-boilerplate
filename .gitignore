@@ -1,0 +1,7 @@
+/test-results/
+/local.log
+/results.xml
+/log/
+/playwright-report/
+/node_modules/
+/.idea/
