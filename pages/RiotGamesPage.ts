@@ -61,7 +61,7 @@ export class RiotGamesPage {
     await this.page.locator(this.signInButton).click();
   }
 
-  async sucessfullLogin(sumner: string) {
+  async successfulLogin(sumner: string) {
     await this.page.locator(this.sumnerNameButton).waitFor({ state: "visible" });
     let sumnerName = await this.page.locator(this.sumnerNameButton).textContent();
     return sumnerName.includes(sumner);

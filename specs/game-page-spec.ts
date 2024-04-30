@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+import {decryptData, encryptData} from "../utils/AwsKms";
 const { RiotGamesPage } = require("../pages/RiotGamesPage");
 
 const testCases = [
@@ -15,3 +16,10 @@ for (const testCase of testCases) {
     await riotGamesPage.clickGameButton(testCase.game);
   });
 }
+
+test('encrypt decrypt using aws kms', async () => {
+  const encryptedData = await encryptData("+'wkZcD@s5!$qpn", "keyId");
+  console.log('Encrypted data:', encryptedData);
+  const decryptedData = await decryptData(encryptedData);
+  console.log('Decrypted data:', decryptedData);
+})

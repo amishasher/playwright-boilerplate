@@ -5,3 +5,4 @@
 /playwright-report/
 /node_modules/
 /.idea/
+/playwright-boilerplate.iml

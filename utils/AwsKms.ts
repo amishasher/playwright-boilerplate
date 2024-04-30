@@ -1,34 +1,43 @@
-import AWS = require("aws-sdk");
+import * as AWS from 'aws-sdk';
 
-export class AwsKms {
-    private readonly keyId: string;
-    constructor(keyId : string) {
-        this.keyId = keyId;
+// Initialize AWS SDK with your AWS credentials and region
+AWS.config.update({ region: 'us-west-2',
+    credentials: {
+        accessKeyId: "accessKeyId",
+        secretAccessKey: "secretAccessKey",
+        sessionToken: "sessionToken" }
+});
+
+// Create an instance of the KMS service
+const kms = new AWS.KMS();
+
+// Encrypt function
+export async function encryptData(data: string, keyId: string): Promise<string> {
+    const params = {
+        KeyId: keyId,
+        Plaintext: data
+    };
+
+    try {
+        const result = await kms.encrypt(params).promise();
+        return result.CiphertextBlob!.toString('base64');
+    } catch (err) {
+        console.error('Error encrypting data:', err);
+        throw err;
     }
+}
 
-    kmsEncrypt(secret: string) {
-        const kms = new AWS.KMS();
-        const params = {
-            KeyId: this.keyId,
-            Plaintext: Buffer.from(secret),
-        };
+// Decrypt function
+export async function decryptData(ciphertext: string): Promise<string> {
+    const params = {
+        CiphertextBlob: Buffer.from(ciphertext, 'base64')
+    };
 
-        kms.encrypt(params, (err, data) => {
-            if (err) return err;
-            else return data.CiphertextBlob.toString("base64");
-        });
-    }
-
-    kmsDecrypt(encryptedSecret: string) {
-        const kms = new AWS.KMS();
-        const params = {
-            CiphertextBlob: Buffer.from(encryptedSecret, 'base64'),
-        };
-
-        kms.decrypt(params, (err, data) => {
-            if (err) return err;
-            else return data.Plaintext.toString();
-        });
-
+    try {
+        const result = await kms.decrypt(params).promise();
+        return result.Plaintext!.toString();
+    } catch (err) {
+        console.error('Error decrypting data:', err);
+        throw err;
     }
 }

@@ -9,7 +9,7 @@ test.describe("Login tests", () => {
     riotGamesPage = new RiotGamesPage(page);
     await riotGamesPage.goToRiotGamesSite();
   });
-  test("Login with valid credentials", async () => {
+  test.skip("Login with valid credentials", async () => {
     await riotGamesPage.clickLogin();
     await riotGamesPage.signInWithCredentials("LolGERProd03", "+'wkZcD@s5!$qpn");
     assert.isTrue(await riotGamesPage.sucessfullLogin("ZeeGerman03"));

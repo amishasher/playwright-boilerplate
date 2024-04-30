@@ -1,1 +1,1 @@
-# playwright-templates
+# playwright-boilerplate
